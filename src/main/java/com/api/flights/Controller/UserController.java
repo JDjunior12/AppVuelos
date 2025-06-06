@@ -10,35 +10,40 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @GetMapping
+    @GetMapping("/api/v1/user")
     public ResponseEntity<List<User>> getAll(){
         return this.userService.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/v1/user/{id}")
     public ResponseEntity<Optional<User>> getById(@PathVariable Long id){
         return this.userService.getById(id);
     }
 
-    @PostMapping
+    @PostMapping("/api/v1/user")
     public ResponseEntity<User> newUser(@RequestBody User user){
         return this.userService.newUser(user);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/api/v1/user/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
         return this.userService.updateUser(user,id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/api/v1/user/{id}")
     public void deleteUser(@PathVariable Long id){
         this.userService.deleteUser(id);
+    }
+
+    //Login
+    @PostMapping("/api/v1/user/login")
+    public String login(@RequestBody  User user){
+        return this.userService.login(user);
     }
 
 
